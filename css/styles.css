@@ -282,6 +282,84 @@ body {
   margin-top: 4px;
 }
 
+/* ========== CAMPUS MAP ========== */
+
+.map-section {
+  padding: 48px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  border-top: 1px solid var(--border);
+}
+
+.map-subtitle {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  font-family: var(--font-sans);
+}
+
+.safe-text { color: #1aff1a; font-weight: 600; }
+.danger-text { color: var(--red); font-weight: 600; }
+
+.map-container {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 16px;
+}
+
+.campus-map {
+  width: 100%;
+  height: auto;
+}
+
+.building {
+  transition: opacity 0.2s;
+}
+
+.building:hover rect {
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+.building.safe:hover rect {
+  filter: drop-shadow(0 0 10px rgba(26, 255, 26, 0.4));
+}
+
+.building.danger:hover rect {
+  filter: drop-shadow(0 0 10px rgba(255, 26, 26, 0.4));
+}
+
+.map-legend {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.safe-dot { background: #1aff1a; box-shadow: 0 0 6px rgba(26, 255, 26, 0.5); }
+.danger-dot { background: var(--red); box-shadow: 0 0 6px var(--red-glow); }
+.conditional-dot { background: #ff6600; box-shadow: 0 0 6px rgba(255, 102, 0, 0.5); }
+
 /* ========== RULES ========== */
 
 .rules-section {
