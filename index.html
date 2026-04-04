@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PARANOIA — Brooks School</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-left">
+      <span class="nav-icon">😈</span>
+      <span class="nav-logo">PARANOIA</span>
+    </div>
+    <div class="nav-links">
+      <a href="#standings" class="nav-link active">Standings</a>
+      <a href="#rules" class="nav-link">Rules</a>
+      <a href="#killfeed" class="nav-link">Kill Feed</a>
+      <button class="nav-signin" disabled>SIGN IN — COMING SOON</button>
+    </div>
+    <button class="mobile-menu-btn" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-sub">BROOKS SCHOOL • SPRING 2026</div>
+    <h1 class="hero-title">PARANOIA</h1>
+    <div class="hero-tagline">EVERY MAN FOR HIMSELF</div>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="stat-number alive">47</div>
+        <div class="stat-label">ALIVE</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number dead">89</div>
+        <div class="stat-label">ELIMINATED</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number day">DAY 5</div>
+        <div class="stat-label">CURRENT</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number kills">136</div>
+        <div class="stat-label">TOTAL KILLS</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-grid">
+
+    <!-- Leaderboard -->
+    <section class="panel" id="standings">
+      <h2 class="panel-title">⚔ Top Assassins</h2>
+
+      <div class="leader leader-1">
+        <div class="leader-info">
+          <span class="leader-rank">#1</span>
+          <span class="leader-name">Marcus T. '27</span>
+        </div>
+        <div class="leader-kills">8 kills</div>
+      </div>
+
+      <div class="leader">
+        <div class="leader-info">
+          <span class="leader-rank">#2</span>
+          <span class="leader-name">Sarah K. '26</span>
+        </div>
+        <div class="leader-kills">7 kills</div>
+      </div>
+
+      <div class="leader">
+        <div class="leader-info">
+          <span class="leader-rank">#3</span>
+          <span class="leader-name">Jake R. '27</span>
+        </div>
+        <div class="leader-kills">6 kills</div>
+      </div>
+
+      <div class="leader">
+        <div class="leader-info">
+          <span class="leader-rank">#4</span>
+          <span class="leader-name">Avery L. '28</span>
+        </div>
+        <div class="leader-kills">5 kills</div>
+      </div>
+
+      <div class="leader">
+        <div class="leader-info">
+          <span class="leader-rank">#5</span>
+          <span class="leader-name">Chris M. '26</span>
+        </div>
+        <div class="leader-kills">5 kills</div>
+      </div>
+
+      <div class="leader">
+        <div class="leader-info">
+          <span class="leader-rank">#6</span>
+          <span class="leader-name">Priya N. '27</span>
+        </div>
+        <div class="leader-kills">4 kills</div>
+      </div>
+
+      <div class="leader">
+        <div class="leader-info">
+          <span class="leader-rank">#7</span>
+          <span class="leader-name">Leo B. '28</span>
+        </div>
+        <div class="leader-kills">4 kills</div>
+      </div>
+
+      <div class="leader">
+        <div class="leader-info">
+          <span class="leader-rank">#8</span>
+          <span class="leader-name">Emma C. '26</span>
+        </div>
+        <div class="leader-kills">3 kills</div>
+      </div>
+    </section>
+
+    <!-- Kill Feed -->
+    <section class="panel" id="killfeed">
+      <h2 class="panel-title">🔪 Live Kill Feed</h2>
+
+      <div class="kill-entry">
+        <div class="kill-time">TODAY • 11:42 AM</div>
+        <div class="kill-detail">
+          <span class="killer">Marcus T.</span>
+          <span class="kill-verb">eliminated</span>
+          <span class="victim">Danny W.</span>
+        </div>
+        <div class="kill-meta">📍 Main Street • 3 witnesses</div>
+      </div>
+
+      <div class="kill-entry">
+        <div class="kill-time">TODAY • 10:15 AM</div>
+        <div class="kill-detail">
+          <span class="killer">Avery L.</span>
+          <span class="kill-verb">eliminated</span>
+          <span class="victim">Kim P.</span>
+        </div>
+        <div class="kill-meta">📍 The Portico • 3 witnesses</div>
+      </div>
+
+      <div class="kill-entry">
+        <div class="kill-time">TODAY • 9:03 AM</div>
+        <div class="kill-detail">
+          <span class="killer">Sarah K.</span>
+          <span class="kill-verb">eliminated</span>
+          <span class="victim">Ben F.</span>
+        </div>
+        <div class="kill-meta">📍 Athletic Center • 4 witnesses</div>
+      </div>
+
+      <div class="kill-entry">
+        <div class="kill-time">YESTERDAY • 2:30 PM</div>
+        <div class="kill-detail">
+          <span class="killer">Jake R.</span>
+          <span class="kill-verb">eliminated</span>
+          <span class="victim">Tyler S.</span>
+        </div>
+        <div class="kill-meta">📍 Student Center • 3 witnesses</div>
+      </div>
+
+      <div class="kill-entry">
+        <div class="kill-time">YESTERDAY • 11:55 AM</div>
+        <div class="kill-detail">
+          <span class="killer">Chris M.</span>
+          <span class="kill-verb">eliminated</span>
+          <span class="victim">Jordan L.</span>
+        </div>
+        <div class="kill-meta">📍 Hallway, Art Building • 5 witnesses</div>
+      </div>
+
+      <div class="kill-entry">
+        <div class="kill-time">YESTERDAY • 8:47 AM</div>
+        <div class="kill-detail">
+          <span class="killer">Priya N.</span>
+          <span class="kill-verb">eliminated</span>
+          <span class="victim">Alex M.</span>
+        </div>
+        <div class="kill-meta">📍 Danforth Building • 3 witnesses</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Rules Section -->
+  <section class="rules-section" id="rules">
+    <h2 class="section-heading">📜 Rules & Regulations</h2>
+
+    <div class="rules-grid">
+      <div class="rule-card">
+        <h3>⏰ Time & Place</h3>
+        <ul>
+          <li>Assassinations may only occur during the school day (as shown on onBrooks)</li>
+          <li>Day ends at different times on Wednesdays, Fridays, and Saturdays</li>
+          <li>No Saturday school = no Paranoia that day</li>
+          <li>Sleep-in periods are fair game</li>
+        </ul>
+      </div>
+
+      <div class="rule-card">
+        <h3>🛡️ Safe Zones</h3>
+        <ul>
+          <li>Classrooms (including Art Center)</li>
+          <li>Dormitories & Bathrooms</li>
+          <li>Chapel & Library</li>
+          <li>Dining Hall, Servery & Coffeehouse</li>
+          <li>Athletic Locker Rooms & Fitness Center</li>
+          <li>Busses to/from away games</li>
+          <li>Admissions Building & Health Center</li>
+          <li>School Meeting</li>
+        </ul>
+      </div>
+
+      <div class="rule-card danger">
+        <h3>⚠️ Danger Zones</h3>
+        <ul>
+          <li>Main Street</li>
+          <li>Outdoor fields & tennis courts</li>
+          <li>Hallways in academic & art buildings</li>
+          <li>Athletic Center</li>
+          <li>Danforth Building & The Portico</li>
+          <li>Student Center</li>
+          <li>Theatre (safe during school meeting block)</li>
+          <li>Boathouse</li>
+        </ul>
+      </div>
+
+      <div class="rule-card">
+        <h3>🔪 Elimination Rules</h3>
+        <ul>
+          <li>Tag must be from the back / out of sight</li>
+          <li>You must yell <strong>"WITNESSES"</strong> for the kill to count</li>
+          <li><strong>3 witnesses minimum</strong> must be present</li>
+          <li>Weapon must make physical contact</li>
+          <li>5-second wait after eye contact or conversation</li>
+          <li>Submit the kill form immediately after</li>
+        </ul>
+      </div>
+
+      <div class="rule-card">
+        <h3>🛡️ The SHIELD</h3>
+        <p>If you see your pursuer approaching, yell <strong>"SHIELD"</strong> — they cannot eliminate you for the rest of that day.</p>
+        <p class="rule-warning">⚠️ ONE shield per day. Use it wisely.</p>
+      </div>
+
+      <div class="rule-card">
+        <h3>🗡️ Weapons</h3>
+        <ul>
+          <li>Made of <strong>cardboard, tape, and/or hot glue</strong> only</li>
+          <li>NO pencils or other materials</li>
+          <li>Customization encouraged within material limits</li>
+          <li>Weapon must be in your hand touching the target</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="special-rule">
+      <h3>📖 The Matt Mulvey '21 Rule</h3>
+      <p>You may not eliminate a player who has just delivered a Chapel Talk while they are standing outside of the Chapel receiving praise. You must wait until they are walking away.</p>
+    </div>
+  </section>
+
+  <!-- Past Winners -->
+  <section class="winners-section">
+    <h2 class="section-heading">🏆 Hall of Assassins</h2>
+    <div class="winners-grid">
+      <div class="winner"><span class="winner-year">2026</span><span class="winner-name">???</span></div>
+      <div class="winner"><span class="winner-year">2025</span><span class="winner-name">Samson Nwobi '25</span></div>
+      <div class="winner"><span class="winner-year">2024</span><span class="winner-name">Lydia Tangney '25</span></div>
+      <div class="winner"><span class="winner-year">2023</span><span class="winner-name">Harry Bertos '23</span></div>
+      <div class="winner"><span class="winner-year">2022</span><span class="winner-name">Daniel Reyes '23</span></div>
+      <div class="winner"><span class="winner-year">2021</span><span class="winner-name">Daelly Osorio '22</span></div>
+      <div class="winner covid"><span class="winner-year">2020</span><span class="winner-name">COVID-19 beat us all</span></div>
+      <div class="winner"><span class="winner-year">2019</span><span class="winner-name">Kihak Nam '99</span></div>
+      <div class="winner"><span class="winner-year">2018</span><span class="winner-name">Terrell Brown '18</span></div>
+      <div class="winner"><span class="winner-year">2017</span><span class="winner-name">Patrick Sheehan '17</span></div>
+      <div class="winner"><span class="winner-year">2016</span><span class="winner-name">Will Gibeley '17</span></div>
+      <div class="winner"><span class="winner-year">2015</span><span class="winner-name">Henry Mathey '15</span></div>
+      <div class="winner"><span class="winner-year">2014</span><span class="winner-name">Alex Wagner '15</span></div>
+      <div class="winner"><span class="winner-year">2013</span><span class="winner-name">Joshua Jacobo '13</span></div>
+      <div class="winner"><span class="winner-year">2012</span><span class="winner-name">Chad Rogers '12</span></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-left">PARANOIA 2026 • BROOKS SCHOOL</div>
+    <div class="footer-right">SIGN IN TO SEE YOUR TARGET →</div>
+  </footer>
+
+</body>
+</html>
