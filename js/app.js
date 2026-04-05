@@ -50,18 +50,37 @@ function renderStats(data) {
   document.getElementById('stat-kills').textContent = totalKills;
 }
 
-const LEADERBOARD_LIMIT = 10;
+const LEADERBOARD_PAGE = 10;
+let leaderboardShown = LEADERBOARD_PAGE;
+let leaderboardData = [];
+
+function renderPlayer(player, i) {
+  const rank = i + 1;
+  const isTop3 = rank <= 3;
+  const isFirst = rank === 1;
+  const isEliminated = !player.active;
+  const statusClass = isEliminated ? ' leader-eliminated' : '';
+  const topClass = isFirst ? ' leader-1' : (isTop3 ? ' leader-top3' : '');
+
+  return `
+    <div class="leader${topClass}${statusClass}">
+      <div class="leader-info">
+        <span class="leader-rank">#${rank}</span>
+        <span class="leader-name">${escapeHtml(player.name)}${isEliminated ? ' <span class="leader-status">ELIMINATED</span>' : ''}</span>
+      </div>
+      <div class="leader-kills">${player.kills} kill${player.kills !== 1 ? 's' : ''}</div>
+    </div>`;
+}
 
 function renderLeaderboard(data) {
   const container = document.getElementById('leaderboard-list');
   const leaderboard = data.leaderboard || [];
 
-  // Sort by kills descending, then by name
-  const sorted = [...leaderboard]
+  leaderboardData = [...leaderboard]
     .filter(p => p.kills > 0 || p.active)
     .sort((a, b) => b.kills - a.kills || a.name.localeCompare(b.name));
 
-  if (sorted.length === 0) {
+  if (leaderboardData.length === 0) {
     container.innerHTML = `
       <div class="empty-state">
         <div class="empty-icon">⚔</div>
@@ -70,58 +89,44 @@ function renderLeaderboard(data) {
     return;
   }
 
-  const hasMore = sorted.length > LEADERBOARD_LIMIT;
-  const visible = hasMore ? sorted.slice(0, LEADERBOARD_LIMIT) : sorted;
-  const hidden = hasMore ? sorted.slice(LEADERBOARD_LIMIT) : [];
+  renderLeaderboardSlice();
+}
 
-  function renderPlayer(player, i) {
-    const rank = i + 1;
-    const isTop3 = rank <= 3;
-    const isFirst = rank === 1;
-    const isEliminated = !player.active;
-    const statusClass = isEliminated ? ' leader-eliminated' : '';
-    const topClass = isFirst ? ' leader-1' : (isTop3 ? ' leader-top3' : '');
-
-    return `
-      <div class="leader${topClass}${statusClass}">
-        <div class="leader-info">
-          <span class="leader-rank">#${rank}</span>
-          <span class="leader-name">${escapeHtml(player.name)}${isEliminated ? ' <span class="leader-status">ELIMINATED</span>' : ''}</span>
-        </div>
-        <div class="leader-kills">${player.kills} kill${player.kills !== 1 ? 's' : ''}</div>
-      </div>`;
-  }
+function renderLeaderboardSlice() {
+  const container = document.getElementById('leaderboard-list');
+  const total = leaderboardData.length;
+  const showing = Math.min(leaderboardShown, total);
+  const visible = leaderboardData.slice(0, showing);
 
   let html = visible.map(renderPlayer).join('');
 
-  if (hasMore) {
-    html += `
-      <div class="leader-expand-wrapper" id="leader-hidden" style="display:none;">
-        ${hidden.map((p, i) => renderPlayer(p, i + LEADERBOARD_LIMIT)).join('')}
-        <button class="leader-show-all" onclick="toggleLeaderboard()">
-          COLLAPSE
-        </button>
-      </div>
-      <button class="leader-show-all" id="leader-toggle" onclick="toggleLeaderboard()">
-        SHOW ALL ${sorted.length} PLAYERS
-      </button>`;
+  if (showing < total) {
+    const remaining = total - showing;
+    html += `<div class="leader-btn-row">`;
+    html += `<button class="leader-show-more" onclick="showMoreLeaderboard()">SHOW 10 MORE</button>`;
+    html += `<button class="leader-show-all" onclick="showAllLeaderboard()">SHOW ALL ${total}</button>`;
+    html += `</div>`;
+  } else if (total > LEADERBOARD_PAGE) {
+    html += `<button class="leader-show-all" onclick="collapseLeaderboard()">SHOW TOP 10</button>`;
   }
 
   container.innerHTML = html;
 }
 
-function toggleLeaderboard() {
-  const hidden = document.getElementById('leader-hidden');
-  const btn = document.getElementById('leader-toggle');
-  if (!hidden || !btn) return;
+function showMoreLeaderboard() {
+  leaderboardShown += LEADERBOARD_PAGE;
+  renderLeaderboardSlice();
+}
 
-  const isHidden = hidden.style.display === 'none';
-  hidden.style.display = isHidden ? 'block' : 'none';
-  btn.textContent = isHidden ? 'SHOW TOP 10' : `SHOW ALL ${document.querySelectorAll('.leader').length} PLAYERS`;
+function showAllLeaderboard() {
+  leaderboardShown = leaderboardData.length;
+  renderLeaderboardSlice();
+}
 
-  if (!isHidden) {
-    document.getElementById('standings').scrollIntoView({ behavior: 'smooth' });
-  }
+function collapseLeaderboard() {
+  leaderboardShown = LEADERBOARD_PAGE;
+  renderLeaderboardSlice();
+  document.getElementById('standings').scrollIntoView({ behavior: 'smooth' });
 }
 
 function renderKillFeed(data) {

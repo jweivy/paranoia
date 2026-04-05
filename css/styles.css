@@ -233,6 +233,34 @@ button:focus-visible {
   margin-top: 4px;
 }
 
+/* ========== MOBILE KILL CTA ========== */
+
+.mobile-kill-cta {
+  display: none;
+  padding: 16px 24px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.mobile-kill-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  background: var(--red);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.mobile-kill-btn:hover {
+  background: var(--red-dim);
+}
+
 /* ========== MAIN GRID ========== */
 
 .main-grid {
@@ -347,13 +375,18 @@ button:focus-visible {
 .leader-top3 .leader-name { color: var(--text); }
 .leader-top3 .leader-kills { color: var(--text-muted); }
 
-/* ========== LEADERBOARD — SHOW ALL BUTTON ========== */
+/* ========== LEADERBOARD — CONTROLS ========== */
 
-.leader-show-all {
-  display: block;
-  width: 100%;
-  padding: 14px;
+.leader-btn-row {
+  display: flex;
+  gap: 8px;
   margin-top: 8px;
+}
+
+.leader-show-more,
+.leader-show-all {
+  flex: 1;
+  padding: 14px;
   background: var(--bg-surface);
   border: 1px dashed var(--border);
   color: var(--text-dim);
@@ -365,10 +398,17 @@ button:focus-visible {
   transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 
+.leader-show-more:hover,
 .leader-show-all:hover {
   background: var(--bg-elevated);
   color: var(--red);
   border-color: var(--red-dim);
+}
+
+.leader-show-all:not(.leader-btn-row .leader-show-all) {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
 }
 
 /* ========== LEADERBOARD — ELIMINATED ========== */
@@ -738,6 +778,10 @@ button:focus-visible {
 }
 
 @media (max-width: 768px) {
+  .mobile-kill-cta {
+    display: block;
+  }
+
   .nav-links {
     display: none;
     position: fixed;
