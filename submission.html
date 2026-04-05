@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report a Kill — PARANOIA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a href="index.html" style="text-decoration:none; display:flex; align-items:center; gap:12px;">
+        <span class="nav-icon">😈</span>
+        <span class="nav-logo">PARANOIA</span>
+      </a>
+    </div>
+    <div class="nav-links">
+      <a href="index.html#standings" class="nav-link">Standings</a>
+      <a href="index.html#rules" class="nav-link">Rules</a>
+      <a href="index.html#killfeed" class="nav-link">Kill Feed</a>
+      <a href="submission.html" class="nav-link active">Report Kill</a>
+    </div>
+    <button class="mobile-menu-btn" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="submission-header">
+    <div class="hero-sub">CONFIRM YOUR ELIMINATION</div>
+    <h1 class="submission-title">REPORT A KILL</h1>
+    <p class="submission-desc">Submit immediately after every elimination. Kills not reported within 24 hours may not count.</p>
+  </header>
+
+  <!-- Form Section -->
+  <main class="submission-main">
+    <div class="form-wrapper">
+      <div class="form-rules-bar">
+        <span class="form-rule">⚔ KILLER'S NAME</span>
+        <span class="form-rule-sep">—</span>
+        <span class="form-rule">💀 VICTIM'S NAME</span>
+        <span class="form-rule-sep">—</span>
+        <span class="form-rule">📍 LOCATION</span>
+        <span class="form-rule-sep">—</span>
+        <span class="form-rule">👥 3+ WITNESSES</span>
+      </div>
+
+      <div class="form-embed-container">
+        <iframe
+          src="https://forms.gle/K5U15RcDUFPGYNdW8"
+          class="form-embed"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+          title="Kill Report Form"
+        >
+          Loading form...
+        </iframe>
+      </div>
+
+      <!-- Fallback link in case iframe is blocked -->
+      <div class="form-fallback">
+        <p>Form not loading?</p>
+        <a href="https://forms.gle/K5U15RcDUFPGYNdW8" target="_blank" rel="noopener" class="form-fallback-link">
+          OPEN FORM IN NEW TAB →
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-left">PARANOIA 2026 • BROOKS SCHOOL</div>
+    <a href="index.html" class="footer-right" style="text-decoration:none; color:inherit;">← BACK TO STANDINGS</a>
+  </footer>
+
+</body>
+</html>

@@ -86,6 +86,18 @@ body {
   color: var(--red);
 }
 
+.nav-link-report {
+  color: var(--red) !important;
+  border: 1px solid var(--red-dim);
+  padding: 5px 12px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-link-report:hover {
+  background: var(--red);
+  color: var(--bg) !important;
+}
+
 .nav-signin {
   background: var(--text-dim);
   color: var(--bg);
@@ -240,6 +252,53 @@ body {
   font-weight: 700;
   color: var(--text-dim);
   font-size: 13px;
+}
+
+/* ========== EMPTY / LOADING STATES ========== */
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.empty-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+
+.empty-text {
+  font-size: 12px;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+.last-updated {
+  text-align: center;
+  font-size: 10px;
+  color: var(--text-faint);
+  letter-spacing: 1px;
+  padding-top: 12px;
+}
+
+/* ========== LEADERBOARD — ELIMINATED ========== */
+
+.leader-eliminated {
+  opacity: 0.4;
+}
+
+.leader-eliminated .leader-name {
+  text-decoration: line-through;
+}
+
+.leader-status {
+  font-size: 9px;
+  color: var(--red-dim);
+  letter-spacing: 1px;
+  margin-left: 6px;
+  font-weight: 700;
 }
 
 /* ========== KILL FEED ========== */
@@ -445,6 +504,115 @@ body {
 .winner:first-child .winner-name {
   color: #fff;
   font-weight: 700;
+}
+
+/* ========== SUBMISSION PAGE ========== */
+
+.submission-header {
+  text-align: center;
+  padding: 56px 24px 40px;
+  background: radial-gradient(ellipse at center, #1a0000 0%, var(--bg) 70%);
+  border-bottom: 1px solid var(--border);
+}
+
+.submission-title {
+  font-size: clamp(32px, 8vw, 60px);
+  font-weight: 900;
+  letter-spacing: 8px;
+  color: #fff;
+  text-shadow: 0 0 40px var(--red-glow);
+  line-height: 1;
+  margin: 8px 0 16px;
+}
+
+.submission-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+}
+
+.submission-main {
+  padding: 40px 24px 60px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.form-rules-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  flex-wrap: wrap;
+}
+
+.form-rule {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.form-rule-sep {
+  color: var(--text-faint);
+  font-size: 10px;
+}
+
+.form-embed-container {
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  position: relative;
+  min-height: 640px;
+}
+
+.form-embed {
+  width: 100%;
+  min-height: 640px;
+  border: none;
+  display: block;
+  background: transparent;
+}
+
+.form-fallback {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-top: none;
+}
+
+.form-fallback p {
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+}
+
+.form-fallback-link {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--red);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  transition: opacity 0.2s;
+}
+
+.form-fallback-link:hover {
+  opacity: 0.7;
 }
 
 /* ========== FOOTER ========== */
