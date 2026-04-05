@@ -769,6 +769,16 @@ button:focus-visible {
   color: var(--text-dim);
 }
 
+.footer-credit {
+  text-align: center;
+  padding: 12px 24px;
+  background: var(--bg-dark);
+  font-size: 9px;
+  color: var(--red);
+  letter-spacing: 2px;
+  font-family: var(--font-mono);
+}
+
 /* ========== RESPONSIVE ========== */
 
 @media (max-width: 900px) {
@@ -832,6 +842,11 @@ button:focus-visible {
     flex-direction: column;
     gap: 8px;
     text-align: center;
+  }
+
+  .footer-credit {
+    padding: 16px 24px;
+    font-size: 10px;
   }
 }
 
