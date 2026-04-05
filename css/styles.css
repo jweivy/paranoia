@@ -707,6 +707,42 @@ button:focus-visible {
   font-size: 10px;
 }
 
+/* Mobile: show button, hide iframe */
+.form-mobile-cta {
+  display: none;
+  text-align: center;
+  padding: 32px 20px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+}
+
+.form-mobile-btn {
+  display: block;
+  width: 100%;
+  padding: 18px;
+  background: var(--red);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.form-mobile-btn:hover {
+  background: var(--red-dim);
+}
+
+.form-mobile-note {
+  margin-top: 12px;
+  font-size: 11px;
+  color: var(--text-dim);
+  font-family: var(--font-sans);
+  letter-spacing: 0.5px;
+}
+
 .form-embed-container {
   border: 1px solid var(--border);
   background: var(--bg-surface);
@@ -790,6 +826,14 @@ button:focus-visible {
 @media (max-width: 768px) {
   .mobile-kill-cta {
     display: block;
+  }
+
+  .form-mobile-cta {
+    display: block;
+  }
+
+  .form-embed-container {
+    display: none;
   }
 
   .nav-links {
