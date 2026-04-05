@@ -50,6 +50,8 @@ function renderStats(data) {
   document.getElementById('stat-kills').textContent = totalKills;
 }
 
+const LEADERBOARD_LIMIT = 10;
+
 function renderLeaderboard(data) {
   const container = document.getElementById('leaderboard-list');
   const leaderboard = data.leaderboard || [];
@@ -68,21 +70,58 @@ function renderLeaderboard(data) {
     return;
   }
 
-  container.innerHTML = sorted.map((player, i) => {
+  const hasMore = sorted.length > LEADERBOARD_LIMIT;
+  const visible = hasMore ? sorted.slice(0, LEADERBOARD_LIMIT) : sorted;
+  const hidden = hasMore ? sorted.slice(LEADERBOARD_LIMIT) : [];
+
+  function renderPlayer(player, i) {
     const rank = i + 1;
+    const isTop3 = rank <= 3;
     const isFirst = rank === 1;
     const isEliminated = !player.active;
     const statusClass = isEliminated ? ' leader-eliminated' : '';
+    const topClass = isFirst ? ' leader-1' : (isTop3 ? ' leader-top3' : '');
 
     return `
-      <div class="leader${isFirst ? ' leader-1' : ''}${statusClass}">
+      <div class="leader${topClass}${statusClass}">
         <div class="leader-info">
           <span class="leader-rank">#${rank}</span>
           <span class="leader-name">${escapeHtml(player.name)}${isEliminated ? ' <span class="leader-status">ELIMINATED</span>' : ''}</span>
         </div>
         <div class="leader-kills">${player.kills} kill${player.kills !== 1 ? 's' : ''}</div>
       </div>`;
-  }).join('');
+  }
+
+  let html = visible.map(renderPlayer).join('');
+
+  if (hasMore) {
+    html += `
+      <div class="leader-expand-wrapper" id="leader-hidden" style="display:none;">
+        ${hidden.map((p, i) => renderPlayer(p, i + LEADERBOARD_LIMIT)).join('')}
+        <button class="leader-show-all" onclick="toggleLeaderboard()">
+          COLLAPSE
+        </button>
+      </div>
+      <button class="leader-show-all" id="leader-toggle" onclick="toggleLeaderboard()">
+        SHOW ALL ${sorted.length} PLAYERS
+      </button>`;
+  }
+
+  container.innerHTML = html;
+}
+
+function toggleLeaderboard() {
+  const hidden = document.getElementById('leader-hidden');
+  const btn = document.getElementById('leader-toggle');
+  if (!hidden || !btn) return;
+
+  const isHidden = hidden.style.display === 'none';
+  hidden.style.display = isHidden ? 'block' : 'none';
+  btn.textContent = isHidden ? 'SHOW TOP 10' : `SHOW ALL ${document.querySelectorAll('.leader').length} PLAYERS`;
+
+  if (!isHidden) {
+    document.getElementById('standings').scrollIntoView({ behavior: 'smooth' });
+  }
 }
 
 function renderKillFeed(data) {
