@@ -3,7 +3,7 @@
 // ========================================
 // INSTRUCTIONS: Replace this URL with the gamemaster's Google Apps Script URL
 // It should look like: https://script.google.com/macros/s/XXXXX/exec
-const API_URL = 'PASTE_GAMEMASTER_URL_HERE';
+const API_URL = 'https://script.google.com/a/macros/brooksschool.org/s/AKfycbzBOmy_oECQzpYqS969wKXSVefH3d4kYjh2e6iShHA83WLPZ5DSkYiXF1XU0mZuZGjQ/exec';
 
 // How often to refresh data (in milliseconds) — every 60 seconds
 const REFRESH_INTERVAL = 60000;
