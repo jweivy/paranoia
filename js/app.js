@@ -75,10 +75,24 @@ function renderPlayer(player, i) {
 function renderLeaderboard(data) {
   const container = document.getElementById('leaderboard-list');
   const leaderboard = data.leaderboard || [];
+  const eliminations = data.eliminations || [];
+
+  // Build map: killer name → index of their first kill (lower = earlier)
+  const firstKillIndex = {};
+  eliminations.forEach((e, i) => {
+    if (!(e.killer in firstKillIndex)) firstKillIndex[e.killer] = i;
+  });
 
   leaderboardData = [...leaderboard]
     .filter(p => p.kills > 0 || p.active)
-    .sort((a, b) => b.kills - a.kills || a.name.localeCompare(b.name));
+    .sort((a, b) => {
+      // Primary: most kills first
+      if (b.kills !== a.kills) return b.kills - a.kills;
+      // Tiebreaker: who got their first kill earlier
+      const aFirst = firstKillIndex[a.name] ?? Infinity;
+      const bFirst = firstKillIndex[b.name] ?? Infinity;
+      return aFirst - bFirst;
+    });
 
   if (leaderboardData.length === 0) {
     container.innerHTML = `
