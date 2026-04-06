@@ -129,6 +129,22 @@ function collapseLeaderboard() {
   document.getElementById('standings').scrollIntoView({ behavior: 'smooth' });
 }
 
+const KILLFEED_PAGE = 10;
+let killfeedShown = KILLFEED_PAGE;
+let killfeedData = [];
+
+function renderKillEntry(kill) {
+  return `
+    <div class="kill-entry">
+      <div class="kill-time">${escapeHtml(kill.day || '')}</div>
+      <div class="kill-detail">
+        <span class="killer">${escapeHtml(kill.killer)}</span>
+        <span class="kill-verb">eliminated</span>
+        <span class="victim">${escapeHtml(kill.victim)}</span>
+      </div>
+    </div>`;
+}
+
 function renderKillFeed(data) {
   const container = document.getElementById('killfeed-list');
   const eliminations = data.eliminations || [];
@@ -142,20 +158,44 @@ function renderKillFeed(data) {
     return;
   }
 
-  // Show most recent first
-  const reversed = [...eliminations].reverse();
+  killfeedData = [...eliminations].reverse();
+  renderKillfeedSlice();
+}
 
-  container.innerHTML = reversed.map(kill => {
-    return `
-      <div class="kill-entry">
-        <div class="kill-time">${escapeHtml(kill.day || '')}</div>
-        <div class="kill-detail">
-          <span class="killer">${escapeHtml(kill.killer)}</span>
-          <span class="kill-verb">eliminated</span>
-          <span class="victim">${escapeHtml(kill.victim)}</span>
-        </div>
-      </div>`;
-  }).join('');
+function renderKillfeedSlice() {
+  const container = document.getElementById('killfeed-list');
+  const total = killfeedData.length;
+  const showing = Math.min(killfeedShown, total);
+  const visible = killfeedData.slice(0, showing);
+
+  let html = visible.map(renderKillEntry).join('');
+
+  if (showing < total) {
+    html += `<div class="leader-btn-row">`;
+    html += `<button class="leader-show-more" onclick="showMoreKillfeed()">SHOW 10 MORE</button>`;
+    html += `<button class="leader-show-all" onclick="showAllKillfeed()">SHOW ALL ${total}</button>`;
+    html += `</div>`;
+  } else if (total > KILLFEED_PAGE) {
+    html += `<button class="leader-show-all" onclick="collapseKillfeed()">SHOW LATEST 10</button>`;
+  }
+
+  container.innerHTML = html;
+}
+
+function showMoreKillfeed() {
+  killfeedShown += KILLFEED_PAGE;
+  renderKillfeedSlice();
+}
+
+function showAllKillfeed() {
+  killfeedShown = killfeedData.length;
+  renderKillfeedSlice();
+}
+
+function collapseKillfeed() {
+  killfeedShown = KILLFEED_PAGE;
+  renderKillfeedSlice();
+  document.getElementById('killfeed').scrollIntoView({ behavior: 'smooth' });
 }
 
 function renderLastUpdated(data) {
