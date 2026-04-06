@@ -134,6 +134,108 @@ button:focus-visible {
   cursor: pointer;
 }
 
+/* ========== OFF-DAY POPUP ========== */
+
+.off-day-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: overlay-in 0.3s ease-out;
+}
+
+@keyframes overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.off-day-popup {
+  background: var(--bg-surface);
+  border: 2px solid var(--red);
+  padding: 48px 40px;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  animation: popup-in 0.3s ease-out;
+  box-shadow: 0 0 60px rgba(255, 26, 26, 0.25), 0 0 120px rgba(255, 26, 26, 0.1);
+}
+
+@keyframes popup-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.off-day-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  animation: icon-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes icon-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.off-day-heading {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 6px;
+  color: var(--red);
+  margin-bottom: 12px;
+  text-shadow: 0 0 30px var(--red-glow);
+}
+
+.off-day-message {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.off-day-reason {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.off-day-close {
+  padding: 14px 40px;
+  background: var(--red);
+  color: #fff;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.off-day-close:hover {
+  background: var(--red-dim);
+}
+
+.off-day-strip {
+  padding: 10px 24px;
+  background: linear-gradient(90deg, var(--bg-dark), rgba(255, 26, 26, 0.15), var(--bg-dark));
+  border-bottom: 1px solid var(--red-dim);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--red);
+}
+
 /* ========== HERO ========== */
 
 .hero {
