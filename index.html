@@ -21,23 +21,12 @@
     </div>
     <div class="nav-links">
       <a href="#standings" class="nav-link active">Standings</a>
-      <a href="#rules" class="nav-link">Rules</a>
       <a href="#killfeed" class="nav-link">Kill Feed</a>
+      <a href="#rules" class="nav-link">Rules</a>
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSfkPPXwTwi_qLLP4XkRmpxTXBm7sXCI60KKyhZDCXDviurhtQ/viewform" target="_blank" rel="noopener" class="nav-link nav-link-report">Report Kill</a>
     </div>
     <button class="mobile-menu-btn" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
   </nav>
-
-  <!-- Off-Day Popup (remove after Tuesday April 7) -->
-  <div class="off-day-overlay" id="off-day-overlay">
-    <div class="off-day-popup">
-      <div class="off-day-icon">⚠</div>
-      <h2 class="off-day-heading">GAME PAUSED ON TUESDAY</h2>
-      <p class="off-day-message">NO PARANOIA ON TUESDAY</p>
-      <p class="off-day-reason">Revisit Day — all eliminations are suspended for the day. Game resumes Wednesday.</p>
-      <button class="off-day-close" onclick="document.getElementById('off-day-overlay').style.display='none'">GOT IT</button>
-    </div>
-  </div>
 
   <!-- Hero -->
   <header class="hero">
@@ -63,9 +52,6 @@
         <div class="stat-label">TOTAL KILLS</div>
       </div>
     </div>
-
-    <!-- Off-Day Banner (remove after Tuesday April 7) -->
-    <div class="off-day-strip">⚠ NO PARANOIA ON TUESDAY — REVISIT DAY ⚠</div>
 
     <div class="last-updated" id="last-updated"></div>
   </header>

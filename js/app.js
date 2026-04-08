@@ -1,6 +1,7 @@
 // ========================================
 // PARANOIA — Live Data Engine
 // ========================================
+//
 // INSTRUCTIONS: Replace this URL with the gamemaster's Google Apps Script URL
 // It should look like: https://script.google.com/macros/s/XXXXX/exec
 const API_URL = 'https://script.google.com/a/macros/brooksschool.org/s/AKfycbzBOmy_oECQzpYqS969wKXSVefH3d4kYjh2e6iShHA83WLPZ5DSkYiXF1XU0mZuZGjQ/exec';
@@ -27,6 +28,15 @@ async function fetchGameData() {
 // ========================================
 // RENDERING
 // ========================================
+
+// Sort eliminations chronologically (Day 1 before Day 2, etc.)
+function sortEliminationsChronological(eliminations) {
+  return [...eliminations].sort((a, b) => {
+    const dayA = parseInt((a.day || '').match(/\d+/)?.[0]) || 0;
+    const dayB = parseInt((b.day || '').match(/\d+/)?.[0]) || 0;
+    return dayA - dayB;
+  });
+}
 
 function renderStats(data) {
   const leaderboard = data.leaderboard || [];
@@ -75,7 +85,7 @@ function renderPlayer(player, i) {
 function renderLeaderboard(data) {
   const container = document.getElementById('leaderboard-list');
   const leaderboard = data.leaderboard || [];
-  const eliminations = data.eliminations || [];
+  const eliminations = sortEliminationsChronological(data.eliminations || []);
 
   // Build map: killer name → index of their first kill (lower = earlier)
   const firstKillIndex = {};
@@ -172,7 +182,7 @@ function renderKillFeed(data) {
     return;
   }
 
-  killfeedData = [...eliminations].reverse();
+  killfeedData = sortEliminationsChronological(eliminations).reverse();
   renderKillfeedSlice();
 }
 
@@ -261,6 +271,50 @@ function escapeHtml(str) {
   const div = document.createElement('div');
   div.textContent = str;
   return div.innerHTML;
+}
+
+// ========================================
+// OFF-DAY NOTICE (reusable, for future use)
+// ========================================
+// Call showOffDay() in init() or from the browser console whenever the game
+// needs to be paused (snow day, revisit day, etc.). Remove the call to resume.
+//
+// Example:
+//   showOffDay("GAME PAUSED", "NO PARANOIA TODAY", "Snow day — game resumes tomorrow.");
+
+function showOffDay(heading, message, reason) {
+  // Remove any existing off-day elements so multiple calls don't stack
+  document.querySelectorAll('.off-day-overlay, .off-day-strip').forEach(el => el.remove());
+
+  // Sanitize inputs
+  heading = escapeHtml(heading);
+  message = escapeHtml(message);
+  reason = escapeHtml(reason);
+
+  // Popup overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'off-day-overlay';
+  overlay.innerHTML = `
+    <div class="off-day-popup">
+      <div class="off-day-icon">⚠</div>
+      <h2 class="off-day-heading">${heading}</h2>
+      <p class="off-day-message">${message}</p>
+      <p class="off-day-reason">${reason}</p>
+      <button class="off-day-close">GOT IT</button>
+    </div>`;
+  document.body.prepend(overlay);
+  overlay.querySelector('.off-day-close').addEventListener('click', () => {
+    overlay.remove();
+  });
+
+  // Banner strip below stats bar
+  const strip = document.createElement('div');
+  strip.className = 'off-day-strip';
+  strip.textContent = `⚠ ${message} ⚠`;
+  const lastUpdated = document.getElementById('last-updated');
+  if (lastUpdated) {
+    lastUpdated.parentNode.insertBefore(strip, lastUpdated);
+  }
 }
 
 // ========================================
