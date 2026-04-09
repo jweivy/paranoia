@@ -264,6 +264,109 @@ function showError() {
 }
 
 // ========================================
+// GAME SCHEDULE & INACTIVE STATE
+// ========================================
+
+// Demo mode: compresses each day into 10 seconds to preview transitions
+// Set to false for production
+const DEMO_MODE = false;
+const DEMO_DAY_MS = 10000; // 10 seconds per simulated day
+
+// Schedule: day of week (0=Sun) → { start: [h,m], end: [h,m] } or null (off)
+const GAME_SCHEDULE = {
+  0: null,                                    // Sunday — off
+  1: { start: [8, 0],  end: [15, 15] },      // Monday
+  2: { start: [8, 0],  end: [15, 15] },      // Tuesday
+  3: { start: [9, 0],  end: [12, 0]  },      // Wednesday
+  4: { start: [8, 0],  end: [15, 15] },      // Thursday
+  5: { start: [8, 0],  end: [15, 15] },      // Friday
+  6: { start: [9, 0],  end: [12, 0]  },      // Saturday
+};
+
+const DAY_NAMES = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
+
+let demoStart = null;
+
+function getDemoDate() {
+  if (!demoStart) demoStart = Date.now();
+  const elapsed = Date.now() - demoStart;
+  const dayIndex = Math.floor(elapsed / DEMO_DAY_MS) % 7;
+  const dayProgress = (elapsed % DEMO_DAY_MS) / DEMO_DAY_MS;
+
+  const totalMinutes = Math.floor(dayProgress * 24 * 60);
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+
+  const date = new Date();
+  // Shift to the correct day of the week
+  const offset = dayIndex - date.getDay();
+  date.setDate(date.getDate() + offset);
+  date.setHours(hours, minutes, 0, 0);
+  return date;
+}
+
+function isGameActive(date) {
+  const schedule = GAME_SCHEDULE[date.getDay()];
+  if (!schedule) return false;
+
+  const current = date.getHours() * 60 + date.getMinutes();
+  const start = schedule.start[0] * 60 + schedule.start[1];
+  const end = schedule.end[0] * 60 + schedule.end[1];
+
+  return current >= start && current < end;
+}
+
+function updateGameState() {
+  const now = DEMO_MODE ? getDemoDate() : new Date();
+  const active = isGameActive(now);
+
+  document.body.classList.toggle('game-inactive', !active);
+
+  const indicator = document.getElementById('game-status');
+  if (indicator) {
+    indicator.style.display = active ? 'none' : 'block';
+  }
+
+  // Update demo clock if present
+  if (DEMO_MODE) {
+    updateDemoClock(now, active);
+  }
+}
+
+function updateDemoClock(date, active) {
+  let clock = document.getElementById('demo-clock');
+  if (!clock) {
+    clock = document.createElement('div');
+    clock.id = 'demo-clock';
+    clock.className = 'demo-clock';
+    document.body.appendChild(clock);
+  }
+
+  const h = date.getHours();
+  const m = date.getMinutes();
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  const h12 = h % 12 || 12;
+  const timeStr = h12 + ':' + String(m).padStart(2, '0') + ' ' + ampm;
+
+  clock.innerHTML =
+    '<div class="demo-day">' + DAY_NAMES[date.getDay()] + '</div>' +
+    '<div class="demo-time">' + timeStr + '</div>' +
+    '<div class="demo-state ' + (active ? 'active' : 'inactive') + '">' +
+    (active ? 'GAME ACTIVE' : 'GAME INACTIVE') + '</div>';
+}
+
+function startGameStateChecker() {
+  updateGameState();
+  if (DEMO_MODE) {
+    // Update rapidly in demo mode for smooth time display
+    setInterval(updateGameState, 100);
+  } else {
+    // Check every 60 seconds in production
+    setInterval(updateGameState, 60000);
+  }
+}
+
+// ========================================
 // UTILITIES
 // ========================================
 
@@ -322,6 +425,9 @@ function showOffDay(heading, message, reason) {
 // ========================================
 
 async function init() {
+  // Start game active/inactive state checker
+  startGameStateChecker();
+
   // Don't fetch if URL hasn't been set
   if (API_URL === 'PASTE_GAMEMASTER_URL_HERE') {
     console.log('API URL not configured — showing demo data');

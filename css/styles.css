@@ -236,6 +236,95 @@ button:focus-visible {
   color: var(--red);
 }
 
+/* ========== GAME INACTIVE STATE ========== */
+
+/* Apply filter to individual sections, skipping kill buttons */
+body.game-inactive .nav,
+body.game-inactive .hero,
+body.game-inactive .main-grid,
+body.game-inactive .rules-section,
+body.game-inactive .winners-section,
+body.game-inactive .footer {
+  filter: saturate(0.3) brightness(0.7);
+  transition: filter 0.5s ease;
+}
+
+.nav,
+.hero,
+.main-grid,
+.rules-section,
+.winners-section,
+.footer {
+  transition: filter 0.5s ease;
+}
+
+/* Keep Report Kill button in nav vivid */
+body.game-inactive .nav-link-report {
+  filter: saturate(3.33) brightness(1.43);
+}
+
+/* Keep footer kill link vivid */
+body.game-inactive .footer-right {
+  filter: saturate(3.33) brightness(1.43);
+}
+
+.game-status-indicator {
+  display: none;
+  text-align: center;
+  padding: 10px 16px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--text-dim);
+  background: linear-gradient(90deg, transparent, rgba(85, 85, 85, 0.06), transparent);
+  border-bottom: 1px solid var(--border);
+}
+
+body.game-inactive .game-status-indicator {
+  display: block;
+}
+
+/* Demo mode clock overlay */
+.demo-clock {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  padding: 10px 16px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  z-index: 9999;
+  text-align: right;
+  line-height: 1.6;
+}
+
+/* Demo clock is not inside any filtered section — no counter needed */
+
+.demo-clock .demo-day {
+  color: var(--red);
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.demo-clock .demo-time {
+  color: #fff;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.demo-clock .demo-state {
+  font-size: 9px;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.demo-clock .demo-state.active { color: var(--red); }
+.demo-clock .demo-state.inactive { color: var(--text-dim); }
+
 /* ========== HERO ========== */
 
 .hero {
