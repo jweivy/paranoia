@@ -754,6 +754,8 @@ body.game-inactive .game-status-indicator {
   color: var(--text-faint);
   letter-spacing: 1px;
   padding-top: 12px;
+  position: relative;
+  z-index: 2;
 }
 
 /* ========== LEADERBOARD — TOP 3 ========== */
@@ -1323,4 +1325,5 @@ body.game-inactive .game-status-indicator {
     transition-duration: 0.01ms !important;
   }
   html { scroll-behavior: auto; }
+  .sky { display: none; }
 }
