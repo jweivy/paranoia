@@ -236,6 +236,74 @@ button:focus-visible {
   color: var(--red);
 }
 
+/* ========== RULE CHANGE POPUP ========== */
+
+.rule-change-popup {
+  max-width: 520px;
+  text-align: left;
+}
+
+.rule-change-popup .off-day-icon,
+.rule-change-popup .off-day-heading,
+.rule-change-popup .off-day-message {
+  text-align: center;
+}
+
+.rule-change-list {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rule-change-item {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.5;
+  padding: 10px 14px;
+  background: rgba(255, 26, 26, 0.06);
+  border-left: 3px solid var(--red-dim);
+}
+
+.rule-change-item strong {
+  color: #fff;
+}
+
+.rule-change-note {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+}
+
+.rule-change-popup .off-day-close {
+  display: block;
+  width: 100%;
+}
+
+/* UPDATED badge on rule cards */
+
+.rule-updated-badge {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #fff;
+  background: var(--red);
+  padding: 2px 8px;
+  margin-left: 8px;
+  vertical-align: middle;
+  animation: badge-pulse 2s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
 /* ========== GAME INACTIVE STATE ========== */
 
 /* Apply filter to individual sections, skipping kill buttons */
@@ -353,11 +421,135 @@ body.game-inactive .game-status-indicator {
   50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
 }
 
+/* ========== DAY/NIGHT SKY ========== */
+
+.sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.sun {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 40px rgba(255, 26, 26, 0.6), 0 0 80px rgba(255, 26, 26, 0.3);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.moon {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e8e8e8;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.moon::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #fff;
+  border-radius: 50%;
+  animation: twinkle 2s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.2; }
+  100% { opacity: 1; }
+}
+
+.clouds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 50px;
+  height: 20px;
+}
+
+.cloud-1 {
+  width: 120px;
+  top: 30%;
+  animation: cloud-drift-1 18s linear infinite;
+}
+
+.cloud-2 {
+  width: 80px;
+  top: 50%;
+  animation: cloud-drift-2 24s linear infinite;
+}
+
+.cloud-3 {
+  width: 150px;
+  top: 20%;
+  animation: cloud-drift-3 30s linear infinite;
+}
+
+@keyframes cloud-drift-1 {
+  0% { left: -130px; }
+  100% { left: 110%; }
+}
+
+@keyframes cloud-drift-2 {
+  0% { left: 110%; }
+  100% { left: -100px; }
+}
+
+@keyframes cloud-drift-3 {
+  0% { left: -160px; }
+  100% { left: 110%; }
+}
+
 .hero-sub {
   font-size: 11px;
   letter-spacing: 4px;
   color: var(--red);
   margin-bottom: 10px;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-title {
@@ -368,6 +560,7 @@ body.game-inactive .game-status-indicator {
   text-shadow: 0 0 40px var(--red-glow), 0 0 80px rgba(255, 26, 26, 0.15);
   line-height: 1;
   position: relative;
+  z-index: 2;
 }
 
 .hero-tagline {
@@ -375,6 +568,8 @@ body.game-inactive .game-status-indicator {
   color: var(--text-muted);
   margin-top: 10px;
   letter-spacing: 2px;
+  position: relative;
+  z-index: 2;
 }
 
 /* Stats Bar */
@@ -388,6 +583,8 @@ body.game-inactive .game-status-indicator {
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
 }
 
 .stat-number {

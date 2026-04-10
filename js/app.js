@@ -421,10 +421,47 @@ function showOffDay(heading, message, reason) {
 }
 
 // ========================================
+// RULE CHANGE POPUP
+// ========================================
+// Shows a one-time popup announcing rule updates from the gamemasters.
+// Uses localStorage so each visitor only sees it once.
+
+function showRuleChange() {
+  const STORAGE_KEY = 'paranoia-rule-change-apr9-seen';
+  if (localStorage.getItem(STORAGE_KEY)) return;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'off-day-overlay';
+  overlay.innerHTML = `
+    <div class="off-day-popup rule-change-popup">
+      <div class="off-day-icon">📢</div>
+      <h2 class="off-day-heading">RULE UPDATE</h2>
+      <p class="off-day-message">FROM THE GAMEMASTERS</p>
+      <div class="rule-change-list">
+        <div class="rule-change-item">🔪 Kills must be from <strong>BEHIND on the BACK</strong> — chest + eye contact = invalid</div>
+        <div class="rule-change-item">🗣️ You MUST say <strong>"WITNESSES"</strong></div>
+        <div class="rule-change-item">👥 <strong>3 witnesses</strong> OR a <strong>video + 1 witness</strong></div>
+        <div class="rule-change-item">⏱️ Wait <strong>~5 seconds</strong> after eye contact or conversation</div>
+        <div class="rule-change-item">🛡️ Remember <strong>safe spaces</strong> — check the rules below</div>
+      </div>
+      <p class="rule-change-note">Multiple invalid kills reported. Read the rules. Lock in. 😈</p>
+      <button class="off-day-close">GOT IT</button>
+    </div>`;
+  document.body.prepend(overlay);
+  overlay.querySelector('.off-day-close').addEventListener('click', () => {
+    localStorage.setItem(STORAGE_KEY, '1');
+    overlay.remove();
+  });
+}
+
+// ========================================
 // INITIALIZATION
 // ========================================
 
 async function init() {
+  // Show rule change popup (one-time)
+  showRuleChange();
+
   // Start game active/inactive state checker
   startGameStateChecker();
 
