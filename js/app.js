@@ -264,13 +264,116 @@ function showError() {
 }
 
 // ========================================
+// DAY/NIGHT SKY CYCLE
+// ========================================
+// Cosmetic sky animation in the hero. Fully independent from game active/inactive.
+// Sky follows real clock time: sun from 6AM-6PM, moon from 6PM-6AM.
+// In demo mode, uses getDemoDate() so demo clock is shared, but sky still uses
+// its own sunrise/sunset — the game grayout and sky are intentionally independent.
+
+const SKY_SUNRISE = 6;  // 6 AM
+const SKY_SUNSET = 18;  // 6 PM
+const SKY_STAR_COUNT = 40;
+
+function initDayNightCycle() {
+  const sky = document.getElementById('sky');
+  if (!sky) return;
+
+  const sunEl = document.getElementById('sky-sun');
+  const moonEl = document.getElementById('sky-moon');
+  const starsEl = document.getElementById('sky-stars');
+  const cloudsEl = sky.querySelector('.clouds');
+
+  // Generate stars
+  for (let i = 0; i < SKY_STAR_COUNT; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.animationDelay = (Math.random() * 2) + 's';
+    star.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+    const size = 1 + Math.random() * 2;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    starsEl.appendChild(star);
+  }
+
+  function getSkyHour() {
+    const now = DEMO_MODE ? getDemoDate() : new Date();
+    return now.getHours() + now.getMinutes() / 60;
+  }
+
+  function getArcPosition(progress) {
+    const skyWidth = sky.offsetWidth;
+    const isMobile = skyWidth <= 768;
+
+    if (isMobile) {
+      // Single smooth power curve: tall arch with steep sides, flat top
+      // Matches hand-drawn dome shape. Power of 7 ensures the curve
+      // clears all text (subtitle, title, tagline) at every x position.
+      const x = skyWidth * progress;
+      const peakY = 5;
+      const baseY = 155;
+      const y = peakY + (baseY - peakY) * Math.pow(Math.abs(2 * progress - 1), 7);
+
+      return { x, y, fade: 1 };
+    } else {
+      // Desktop: circular arc, fixed values that look great
+      const centerX = skyWidth / 2;
+      const arcWidth = skyWidth * 0.55;
+      const angle = Math.PI * (1 - progress);
+      return {
+        x: centerX + (arcWidth / 2) * Math.cos(angle),
+        y: 200 - 180 * Math.sin(angle),
+        fade: 1
+      };
+    }
+  }
+
+  function updateSky() {
+    const hour = getSkyHour();
+    const isDay = hour >= SKY_SUNRISE && hour < SKY_SUNSET;
+
+    if (isDay) {
+      const dayProgress = (hour - SKY_SUNRISE) / (SKY_SUNSET - SKY_SUNRISE);
+      const pos = getArcPosition(dayProgress);
+
+      const sunR = sunEl.offsetWidth / 2;
+      sunEl.style.left = (pos.x - sunR) + 'px';
+      sunEl.style.top = (pos.y - sunR) + 'px';
+      sunEl.style.opacity = String(pos.fade);
+      moonEl.style.opacity = '0';
+      starsEl.style.opacity = '0';
+      cloudsEl.style.opacity = '1';
+    } else {
+      let nightHours = hour >= SKY_SUNSET ? hour - SKY_SUNSET : (24 - SKY_SUNSET) + hour;
+      const totalNight = 24 - (SKY_SUNSET - SKY_SUNRISE);
+      const nightProgress = nightHours / totalNight;
+      const pos = getArcPosition(nightProgress);
+
+      const moonR = moonEl.offsetWidth / 2;
+      moonEl.style.left = (pos.x - moonR) + 'px';
+      moonEl.style.top = (pos.y - moonR) + 'px';
+      moonEl.style.opacity = String(pos.fade);
+      sunEl.style.opacity = '0';
+      starsEl.style.opacity = '1';
+      cloudsEl.style.opacity = '0.15';
+    }
+
+    requestAnimationFrame(updateSky);
+  }
+
+  requestAnimationFrame(updateSky);
+}
+
+// ========================================
 // GAME SCHEDULE & INACTIVE STATE
 // ========================================
 
 // Demo mode: compresses each day into 10 seconds to preview transitions
 // Set to false for production
 const DEMO_MODE = false;
-const DEMO_DAY_MS = 10000; // 10 seconds per simulated day
+const DEMO_DAY_MS = 30000; // 30 seconds per simulated day
 
 // Schedule: day of week (0=Sun) → { start: [h,m], end: [h,m] } or null (off)
 const GAME_SCHEDULE = {
@@ -459,11 +562,17 @@ function showRuleChange() {
 // ========================================
 
 async function init() {
+  // Initialize shared demo time base before any system uses it
+  if (DEMO_MODE) demoStart = Date.now();
+
   // Show rule change popup (one-time)
   showRuleChange();
 
   // Start game active/inactive state checker
   startGameStateChecker();
+
+  // Start day/night sky cycle
+  initDayNightCycle();
 
   // Don't fetch if URL hasn't been set
   if (API_URL === 'PASTE_GAMEMASTER_URL_HERE') {
