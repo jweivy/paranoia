@@ -284,6 +284,43 @@ button:focus-visible {
   width: 100%;
 }
 
+/* ========== PURGE POPUP (time-limited event) ========== */
+
+.purge-popup {
+  border-color: var(--red);
+  box-shadow: 0 0 80px rgba(255, 26, 26, 0.45), 0 0 160px rgba(255, 26, 26, 0.2);
+  animation: popup-in 0.3s ease-out, purge-pulse 2.2s ease-in-out 0.3s infinite;
+}
+
+@keyframes purge-pulse {
+  0%, 100% { box-shadow: 0 0 80px rgba(255, 26, 26, 0.45), 0 0 160px rgba(255, 26, 26, 0.2); }
+  50%      { box-shadow: 0 0 110px rgba(255, 26, 26, 0.7),  0 0 200px rgba(255, 26, 26, 0.35); }
+}
+
+.purge-popup .off-day-heading {
+  font-size: 36px;
+  letter-spacing: 10px;
+}
+
+.purge-window {
+  display: block;
+  width: fit-content;
+  margin: 6px auto 18px;
+  padding: 8px 18px;
+  background: var(--red);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-align: center;
+  animation: badge-pulse 1.6s ease-in-out infinite;
+}
+
+.purge-popup .rule-change-list {
+  margin-top: 4px;
+}
+
 /* UPDATED badge on rule cards */
 
 .rule-updated-badge {
