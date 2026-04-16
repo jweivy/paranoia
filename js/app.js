@@ -530,24 +530,23 @@ function showOffDay(heading, message, reason) {
 // Uses localStorage so each visitor only sees it once.
 
 function showRuleChange() {
-  const STORAGE_KEY = 'paranoia-rule-change-apr9-seen';
+  const STORAGE_KEY = 'paranoia-rule-change-apr16-purge-seen';
   if (localStorage.getItem(STORAGE_KEY)) return;
 
   const overlay = document.createElement('div');
   overlay.className = 'off-day-overlay';
   overlay.innerHTML = `
-    <div class="off-day-popup rule-change-popup">
-      <div class="off-day-icon">📢</div>
-      <h2 class="off-day-heading">RULE UPDATE</h2>
+    <div class="off-day-popup rule-change-popup purge-popup">
+      <div class="off-day-icon">😈</div>
+      <h2 class="off-day-heading">THE PURGE</h2>
       <p class="off-day-message">FROM THE GAMEMASTERS</p>
+      <div class="purge-window">TODAY · 1:15 – 3:15 PM</div>
       <div class="rule-change-list">
-        <div class="rule-change-item">🔪 Kills must be from <strong>BEHIND on the BACK</strong> — chest + eye contact = invalid</div>
-        <div class="rule-change-item">🗣️ You MUST say <strong>"WITNESSES"</strong></div>
-        <div class="rule-change-item">👥 <strong>3 witnesses</strong> OR a <strong>video + 1 witness</strong></div>
-        <div class="rule-change-item">⏱️ Wait <strong>~5 seconds</strong> after eye contact or conversation</div>
-        <div class="rule-change-item">🛡️ Remember <strong>safe spaces</strong> — check the rules below</div>
+        <div class="rule-change-item">🚫 <strong>NO SAFE ZONES</strong> except <strong>classrooms</strong></div>
+        <div class="rule-change-item">🛡️ Only the <strong>TOP 3</strong> on the leaderboard may call <strong>SHIELD</strong></div>
+        <div class="rule-change-item">⏱️ Active <strong>only 1:15 – 3:15 PM today</strong> — normal rules resume after</div>
       </div>
-      <p class="rule-change-note">Multiple invalid kills reported. Read the rules. Lock in. 😈</p>
+      <p class="rule-change-note">Nowhere is safe. Watch your back. 😈</p>
       <button class="off-day-close">GOT IT</button>
     </div>`;
   document.body.prepend(overlay);
