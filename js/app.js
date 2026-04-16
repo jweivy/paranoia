@@ -530,7 +530,7 @@ function showOffDay(heading, message, reason) {
 // Uses localStorage so each visitor only sees it once.
 
 function showRuleChange() {
-  const STORAGE_KEY = 'paranoia-rule-change-apr16-purge-seen';
+  const STORAGE_KEY = 'paranoia-rule-change-apr16-purge-v2-seen';
   if (localStorage.getItem(STORAGE_KEY)) return;
 
   const overlay = document.createElement('div');
@@ -542,7 +542,7 @@ function showRuleChange() {
       <p class="off-day-message">FROM THE GAMEMASTERS</p>
       <div class="purge-window">TODAY · 1:15 – 3:15 PM</div>
       <div class="rule-change-list">
-        <div class="rule-change-item">🚫 <strong>NO SAFE ZONES</strong> except <strong>classrooms</strong></div>
+        <div class="rule-change-item">🚫 <strong>NO SAFE ZONES</strong> except <strong>classrooms</strong> and the <strong>Arts Center</strong></div>
         <div class="rule-change-item">🛡️ Only the <strong>TOP 3</strong> on the leaderboard may call <strong>SHIELD</strong></div>
         <div class="rule-change-item">⏱️ Active <strong>only 1:15 – 3:15 PM today</strong> — normal rules resume after</div>
       </div>
