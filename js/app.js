@@ -524,48 +524,12 @@ function showOffDay(heading, message, reason) {
 }
 
 // ========================================
-// RULE CHANGE POPUP
-// ========================================
-// Shows a one-time popup announcing rule updates from the gamemasters.
-// Uses localStorage so each visitor only sees it once.
-
-function showRuleChange() {
-  const STORAGE_KEY = 'paranoia-rule-change-apr16-purge-v2-seen';
-  if (localStorage.getItem(STORAGE_KEY)) return;
-
-  const overlay = document.createElement('div');
-  overlay.className = 'off-day-overlay';
-  overlay.innerHTML = `
-    <div class="off-day-popup rule-change-popup purge-popup">
-      <div class="off-day-icon">😈</div>
-      <h2 class="off-day-heading">THE PURGE</h2>
-      <p class="off-day-message">FROM THE GAMEMASTERS</p>
-      <div class="purge-window">TODAY · 1:15 – 3:15 PM</div>
-      <div class="rule-change-list">
-        <div class="rule-change-item">🚫 <strong>NO SAFE ZONES</strong> except <strong>classrooms</strong> and the <strong>Arts Center</strong></div>
-        <div class="rule-change-item">🛡️ Only the <strong>TOP 3</strong> on the leaderboard may call <strong>SHIELD</strong></div>
-        <div class="rule-change-item">⏱️ Active <strong>only 1:15 – 3:15 PM today</strong> — normal rules resume after</div>
-      </div>
-      <p class="rule-change-note">Nowhere is safe. Watch your back. 😈</p>
-      <button class="off-day-close">GOT IT</button>
-    </div>`;
-  document.body.prepend(overlay);
-  overlay.querySelector('.off-day-close').addEventListener('click', () => {
-    localStorage.setItem(STORAGE_KEY, '1');
-    overlay.remove();
-  });
-}
-
-// ========================================
 // INITIALIZATION
 // ========================================
 
 async function init() {
   // Initialize shared demo time base before any system uses it
   if (DEMO_MODE) demoStart = Date.now();
-
-  // Show rule change popup (one-time)
-  showRuleChange();
 
   // Start game active/inactive state checker
   startGameStateChecker();
