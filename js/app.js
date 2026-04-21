@@ -524,12 +524,46 @@ function showOffDay(heading, message, reason) {
 }
 
 // ========================================
+// RULE CHANGE POPUP
+// ========================================
+// One-time popup announcing rule updates from the gamemasters.
+// Bump STORAGE_KEY for each new announcement so returning visitors see it.
+
+function showRuleChange() {
+  const STORAGE_KEY = 'paranoia-rule-change-apr21-active-hunter-seen';
+  if (localStorage.getItem(STORAGE_KEY)) return;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'off-day-overlay';
+  overlay.innerHTML = `
+    <div class="off-day-popup rule-change-popup">
+      <div class="off-day-icon">📢</div>
+      <h2 class="off-day-heading">RULE UPDATE</h2>
+      <p class="off-day-message">FROM THE GAMEMASTERS</p>
+      <div class="rule-change-list">
+        <div class="rule-change-item">⏱️ If you have <strong>1 elimination</strong> and fail to eliminate your target, you'll be <strong>REMOVED</strong> from the game</div>
+        <div class="rule-change-item">🛡️ Only the <strong>TOP 3</strong> on the leaderboard may call <strong>SHIELD</strong></div>
+      </div>
+      <p class="rule-change-note">Hunt or be cut. 😈</p>
+      <button class="off-day-close">GOT IT</button>
+    </div>`;
+  document.body.prepend(overlay);
+  overlay.querySelector('.off-day-close').addEventListener('click', () => {
+    localStorage.setItem(STORAGE_KEY, '1');
+    overlay.remove();
+  });
+}
+
+// ========================================
 // INITIALIZATION
 // ========================================
 
 async function init() {
   // Initialize shared demo time base before any system uses it
   if (DEMO_MODE) demoStart = Date.now();
+
+  // Show rule change popup (one-time per visitor)
+  showRuleChange();
 
   // Start game active/inactive state checker
   startGameStateChecker();

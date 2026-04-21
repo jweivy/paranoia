@@ -236,6 +236,54 @@ button:focus-visible {
   color: var(--red);
 }
 
+/* ========== RULE CHANGE POPUP ========== */
+
+.rule-change-popup {
+  max-width: 520px;
+  text-align: left;
+}
+
+.rule-change-popup .off-day-icon,
+.rule-change-popup .off-day-heading,
+.rule-change-popup .off-day-message {
+  text-align: center;
+}
+
+.rule-change-list {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rule-change-item {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.5;
+  padding: 10px 14px;
+  background: rgba(255, 26, 26, 0.06);
+  border-left: 3px solid var(--red-dim);
+}
+
+.rule-change-item strong {
+  color: #fff;
+}
+
+.rule-change-note {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+}
+
+.rule-change-popup .off-day-close {
+  display: block;
+  width: 100%;
+}
+
 /* UPDATED badge on rule cards */
 
 .rule-updated-badge {
