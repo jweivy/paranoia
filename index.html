@@ -161,17 +161,16 @@
         </ul>
       </div>
 
-      <div class="rule-card">
-        <h3>🛡️ The SHIELD <span class="rule-updated-badge">UPDATED</span></h3>
-        <p>If you see your pursuer approaching, yell <strong>"SHIELD"</strong> — they cannot eliminate you for the rest of that day.</p>
-        <p class="rule-warning">⚠️ ONE shield per day. Use it wisely.</p>
-        <p class="rule-warning">🏆 Only the <strong>TOP 3</strong> on the leaderboard may call SHIELD.</p>
+      <div class="rule-card shield-removed">
+        <h3>🛡️ The SHIELD <span class="rule-removed-badge">REMOVED</span></h3>
+        <p class="strikethrough">If you see your pursuer approaching, yell <strong>"SHIELD"</strong> — they cannot eliminate you for the rest of that day.</p>
+        <p class="rule-warning">⚠️ As of Day 14, SHIELD is <strong>permanently removed</strong> from the game. No exceptions.</p>
       </div>
 
       <div class="rule-card danger">
-        <h3>⏱️ Stay Active <span class="rule-updated-badge">NEW</span></h3>
-        <p>If you have <strong>1 elimination</strong> and fail to eliminate your target, you will be <strong>removed from the game</strong>.</p>
-        <p class="rule-warning">Hunt or be cut. Don't sit on a single kill.</p>
+        <h3>⏱️ Stay Active <span class="rule-updated-badge">UPDATED</span></h3>
+        <p>Fail to eliminate your target and you will be <strong>removed from the game</strong>. No threshold. No exceptions.</p>
+        <p class="rule-warning">Day 15: The hunt is mandatory. Every player is on the clock.</p>
       </div>
     </div>
 
@@ -211,5 +210,31 @@
   <div class="footer-credit">Built by Julian Wei '26</div>
 
   <script src="js/app.js"></script>
+
+  <div id="update-modal" data-update-key="day-15" class="off-day-overlay" style="display:none;">
+    <div class="off-day-popup rule-change-popup">
+      <div class="off-day-heading">DAY 15</div>
+      <div class="off-day-message">DIRECTIVE FROM THE GAME MASTER</div>
+      <div class="rule-change-list">
+        <div class="rule-change-item">Fail to eliminate your target — <strong>you are removed from the game</strong>. No threshold. No exceptions.</div>
+        <div class="rule-change-item">Shield calls remain <strong>permanently removed</strong>. There is no protection.</div>
+      </div>
+      <div class="rule-change-note">ISSUED APR 24, 2026 — DAY 15</div>
+      <button class="off-day-close" id="update-modal-dismiss">ACKNOWLEDGED</button>
+    </div>
+  </div>
+  <script>
+  (function() {
+    var key = 'day-15';
+    var modal = document.getElementById('update-modal');
+    if (!localStorage.getItem('paranoia-seen-' + key)) {
+      modal.style.display = 'flex';
+    }
+    document.getElementById('update-modal-dismiss').addEventListener('click', function() {
+      modal.style.display = 'none';
+      localStorage.setItem('paranoia-seen-' + key, '1');
+    });
+  })();
+  </script>
 </body>
 </html>
