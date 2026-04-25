@@ -656,7 +656,7 @@ body.game-inactive .game-status-indicator {
   grid-template-columns: 1fr 1fr;
   gap: 1px;
   background: var(--border);
-  align-items: start;
+  align-items: stretch;
 }
 
 .panel {
@@ -756,6 +756,31 @@ body.game-inactive .game-status-indicator {
   padding-top: 12px;
   position: relative;
   z-index: 2;
+}
+
+/* ========== LEADERBOARD FILTER TOGGLE ========== */
+
+.leader-filter-btn {
+  display: block;
+  width: 100%;
+  padding: 8px 14px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  cursor: pointer;
+  margin-bottom: 12px;
+  text-align: left;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.leader-filter-btn:hover {
+  background: var(--bg-elevated);
+  color: var(--red);
+  border-color: var(--red-dim);
 }
 
 /* ========== LEADERBOARD — TOP 3 ========== */
@@ -1361,4 +1386,131 @@ body.game-inactive .game-status-indicator {
   }
   html { scroll-behavior: auto; }
   .sky { display: none; }
+}
+
+/* ========== DAY 14 PURGE ALERT ========== */
+
+.purge-alert {
+  position: relative;
+  background: linear-gradient(135deg, #1a0000 0%, #330000 50%, #1a0000 100%);
+  border: 2px solid var(--red);
+  padding: 28px 32px;
+  margin: 0 auto 40px;
+  max-width: 1100px;
+  box-shadow: 0 0 40px var(--red-glow), inset 0 0 20px rgba(255, 26, 26, 0.15);
+  animation: purge-flicker 3s ease-in-out infinite;
+}
+
+.purge-alert::before,
+.purge-alert::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: repeating-linear-gradient(90deg, var(--red) 0 12px, transparent 12px 24px);
+}
+
+.purge-alert::before { top: -2px; }
+.purge-alert::after  { bottom: -2px; }
+
+@keyframes purge-flicker {
+  0%, 100% { box-shadow: 0 0 40px var(--red-glow), inset 0 0 20px rgba(255, 26, 26, 0.15); }
+  50%      { box-shadow: 0 0 60px rgba(255, 26, 26, 0.5), inset 0 0 30px rgba(255, 26, 26, 0.25); }
+}
+
+.purge-header {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--red);
+  text-align: center;
+  text-shadow: 0 0 20px var(--red-glow);
+  margin-bottom: 10px;
+}
+
+.purge-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed rgba(255, 26, 26, 0.4);
+}
+
+.purge-rules {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px;
+}
+
+.purge-rules li {
+  padding: 8px 0 8px 28px;
+  position: relative;
+  color: #f5f5f5;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.purge-rules li::before {
+  content: "▸";
+  position: absolute;
+  left: 4px;
+  color: var(--red);
+  font-weight: 800;
+}
+
+.purge-rules strong {
+  color: var(--red);
+}
+
+.purge-footer {
+  font-size: 14px;
+  color: #ccc;
+  text-align: center;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(255, 26, 26, 0.4);
+  line-height: 1.5;
+}
+
+.purge-footer strong {
+  color: var(--red);
+  letter-spacing: 1px;
+}
+
+@media (max-width: 600px) {
+  .purge-alert { padding: 20px 18px; }
+  .purge-header { font-size: 20px; letter-spacing: 2px; }
+  .purge-time { font-size: 13px; letter-spacing: 2px; }
+  .purge-rules li { font-size: 14px; }
+}
+
+/* SHIELD removed card */
+
+.rule-card.shield-removed {
+  opacity: 0.82;
+  border-color: rgba(255, 26, 26, 0.5);
+}
+
+.rule-card.shield-removed .strikethrough {
+  text-decoration: line-through;
+  color: #666;
+}
+
+.rule-removed-badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #fff;
+  background: #444;
+  padding: 2px 8px;
+  margin-left: 8px;
+  vertical-align: middle;
+  text-decoration: line-through;
 }

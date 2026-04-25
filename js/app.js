@@ -63,6 +63,17 @@ function renderStats(data) {
 const LEADERBOARD_PAGE = 10;
 let leaderboardShown = LEADERBOARD_PAGE;
 let leaderboardData = [];
+let showAliveOnly = true;
+
+function getFilteredLeaderboardData() {
+  return showAliveOnly ? leaderboardData.filter(p => p.active) : leaderboardData;
+}
+
+function toggleAliveFilter() {
+  showAliveOnly = !showAliveOnly;
+  leaderboardShown = LEADERBOARD_PAGE;
+  renderLeaderboardSlice();
+}
 
 function renderPlayer(player, i) {
   const rank = i + 1;
@@ -118,14 +129,20 @@ function renderLeaderboard(data) {
 
 function renderLeaderboardSlice() {
   const container = document.getElementById('leaderboard-list');
-  const total = leaderboardData.length;
+  const filtered = getFilteredLeaderboardData();
+  const total = filtered.length;
   const showing = Math.min(leaderboardShown, total);
-  const visible = leaderboardData.slice(0, showing);
+  const visible = filtered.slice(0, showing);
 
-  let html = visible.map(renderPlayer).join('');
+  const eliminatedCount = leaderboardData.filter(p => !p.active).length;
+  const btnLabel = showAliveOnly
+    ? `+ SHOW ELIMINATED (${eliminatedCount})`
+    : '— HIDE ELIMINATED';
+  let html = `<button class="leader-filter-btn" onclick="toggleAliveFilter()">${btnLabel}</button>`;
+
+  html += visible.map(renderPlayer).join('');
 
   if (showing < total) {
-    const remaining = total - showing;
     html += `<div class="leader-btn-row">`;
     html += `<button class="leader-show-more" onclick="showMoreLeaderboard()">SHOW 10 MORE</button>`;
     html += `<button class="leader-show-all" onclick="showAllLeaderboard()">SHOW ALL ${total}</button>`;
