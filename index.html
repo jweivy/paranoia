@@ -112,23 +112,23 @@
 
     <div class="rules-grid">
       <div class="rule-card">
-        <h3>⏰ Time & Place</h3>
+        <h3>⏰ Time & Place <span class="rule-updated-badge">UPDATED</span></h3>
         <ul>
-          <li>Assassinations may only occur during the school day (as shown on onBrooks)</li>
-          <li>Day ends at different times on Wednesdays, Fridays, and Saturdays</li>
+          <li><strong>Hunting hours: 8:00 AM – 6:00 PM</strong> (Day 18)</li>
           <li>No Saturday school = no Paranoia that day</li>
           <li>Sleep-in periods are fair game</li>
         </ul>
       </div>
 
       <div class="rule-card">
-        <h3>🛡️ Safe Zones</h3>
+        <h3>🛡️ Safe Zones <span class="rule-updated-badge">UPDATED</span></h3>
         <ul>
           <li>Classrooms &amp; the <strong>entire Art Center</strong></li>
           <li>Dormitories &amp; Bathrooms</li>
           <li>Chapel & Library</li>
           <li>Dining Hall, Servery & Coffeehouse</li>
-          <li>Athletic Locker Rooms & Fitness Center</li>
+          <li><strong>Athletic locker rooms only</strong> (not the Athletic Center as a whole)</li>
+          <li><strong>While actively participating in practice</strong> (Day 18)</li>
           <li>Busses to/from away games</li>
           <li>Admissions Building & Health Center</li>
           <li>School Meeting</li>
@@ -211,21 +211,22 @@
 
   <script src="js/app.js"></script>
 
-  <div id="update-modal" data-update-key="day-15" class="off-day-overlay" style="display:none;">
+  <div id="update-modal" data-update-key="day-18" class="off-day-overlay" style="display:none;">
     <div class="off-day-popup rule-change-popup">
-      <div class="off-day-heading">DAY 15</div>
+      <div class="off-day-heading">DAY 18</div>
       <div class="off-day-message">DIRECTIVE FROM THE GAME MASTER</div>
       <div class="rule-change-list">
-        <div class="rule-change-item">Fail to eliminate your target — <strong>you are removed from the game</strong>. No threshold. No exceptions.</div>
-        <div class="rule-change-item">Shield calls remain <strong>permanently removed</strong>. There is no protection.</div>
+        <div class="rule-change-item">Hunting hours now run <strong>8:00 AM – 6:00 PM</strong>.</div>
+        <div class="rule-change-item">You have <strong>immunity while participating in practice</strong>. Locker rooms remain safe zones.</div>
+        <div class="rule-change-item">The <strong>Athletic Center is no longer a safe zone</strong> as a whole — only locker rooms and active practice grant protection.</div>
       </div>
-      <div class="rule-change-note">ISSUED APR 24, 2026 — DAY 15</div>
+      <div class="rule-change-note">ISSUED APR 28, 2026 — DAY 18</div>
       <button class="off-day-close" id="update-modal-dismiss">ACKNOWLEDGED</button>
     </div>
   </div>
   <script>
   (function() {
-    var key = 'day-15';
+    var key = 'day-18';
     var modal = document.getElementById('update-modal');
     if (!localStorage.getItem('paranoia-seen-' + key)) {
       modal.style.display = 'flex';
