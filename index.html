@@ -114,7 +114,7 @@
       <div class="rule-card">
         <h3>⏰ Time & Place <span class="rule-updated-badge">UPDATED</span></h3>
         <ul>
-          <li><strong>Hunting hours: 8:00 AM – 6:00 PM</strong> (Day 20)</li>
+          <li><strong>Hunting hours: 8:00 AM – 8:00 PM</strong> (Day 23)</li>
           <li>No Saturday school = no Paranoia that day</li>
           <li>Sleep-in periods are fair game</li>
         </ul>
@@ -211,20 +211,20 @@
 
   <script src="js/app.js"></script>
 
-  <div id="update-modal" data-update-key="day-20" class="off-day-overlay" style="display:none;">
+  <div id="update-modal" data-update-key="day-23" class="off-day-overlay" style="display:none;">
     <div class="off-day-popup rule-change-popup">
-      <div class="off-day-heading">DAY 20</div>
+      <div class="off-day-heading">DAY 23</div>
       <div class="off-day-message">DIRECTIVE FROM THE GAME MASTER</div>
       <div class="rule-change-list">
-        <div class="rule-change-item">Hunting hours now run <strong>8:00 AM – 6:00 PM</strong>. The day starts an hour earlier.</div>
+        <div class="rule-change-item">Hunting hours now run <strong>8:00 AM – 8:00 PM</strong>. The window expands by two hours into the evening.</div>
       </div>
-      <div class="rule-change-note">ISSUED APR 30, 2026 — DAY 20</div>
+      <div class="rule-change-note">ISSUED MAY 4, 2026 — DAY 23</div>
       <button class="off-day-close" id="update-modal-dismiss">ACKNOWLEDGED</button>
     </div>
   </div>
   <script>
   (function() {
-    var key = 'day-20';
+    var key = 'day-23';
     var modal = document.getElementById('update-modal');
     if (!localStorage.getItem('paranoia-seen-' + key)) {
       modal.style.display = 'flex';
