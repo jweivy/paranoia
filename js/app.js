@@ -644,13 +644,6 @@ function showDemoData() {
 // Start when DOM is ready
 document.addEventListener('DOMContentLoaded', init);
 
-// ========================================
-// EASTER EGGS
-// ========================================
-// Hidden tributes left by Julian Wei '26.
-// Future gamemasters: please leave at least one of these in. It's a tradition now.
-
-// Console signature — for anyone who opens DevTools.
 (function() {
   if (typeof console === 'undefined' || !console.log) return;
   var styleTitle = 'color:#ff1a1a;font-size:24px;font-weight:800;letter-spacing:6px;font-family:monospace;';
@@ -658,43 +651,4 @@ document.addEventListener('DOMContentLoaded', init);
   console.log('%cPARANOIA', styleTitle);
   console.log('%cBuilt by Julian Wei \'26 — handed down to whoever\'s reading this.', styleSub);
   console.log('%cIf you\'re running the game next year: see README.md. Have fun. Don\'t get caught.', styleSub);
-})();
-
-// Konami code (↑ ↑ ↓ ↓ ← → ← → B A) reveals a Class of '26 tribute.
-(function() {
-  var seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-  var pos = 0;
-  document.addEventListener('keydown', function(e) {
-    var key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
-    if (key === seq[pos]) {
-      pos++;
-      if (pos === seq.length) {
-        pos = 0;
-        revealTribute();
-      }
-    } else {
-      pos = key === seq[0] ? 1 : 0;
-    }
-  });
-
-  function revealTribute() {
-    if (document.getElementById('paranoia-tribute')) return;
-    var el = document.createElement('div');
-    el.id = 'paranoia-tribute';
-    el.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(5,5,5,0.92);' +
-      'display:flex;flex-direction:column;align-items:center;justify-content:center;' +
-      'font-family:"JetBrains Mono",monospace;color:#e0e0e0;text-align:center;' +
-      'padding:24px;cursor:pointer;animation:fade-in 0.6s ease;';
-    el.innerHTML =
-      '<div style="font-size:11px;letter-spacing:6px;color:#ff1a1a;margin-bottom:16px;">CLASS OF 2026</div>' +
-      '<div style="font-size:48px;font-weight:800;letter-spacing:4px;color:#ff1a1a;margin-bottom:24px;">EVERY MAN FOR HIMSELF</div>' +
-      '<div style="font-size:13px;letter-spacing:2px;color:#e0e0e0;max-width:600px;line-height:1.8;">' +
-      'In memory of every senior who ever sprinted through Main Street,<br>' +
-      'every chapel-talk-giver who walked too slow,<br>' +
-      'and every roommate who got stabbed at 8:01 AM.' +
-      '</div>' +
-      '<div style="font-size:10px;letter-spacing:3px;color:#8a8a8a;margin-top:32px;">— TAP ANYWHERE TO CLOSE —</div>';
-    document.body.appendChild(el);
-    el.addEventListener('click', function() { el.remove(); });
-  }
 })();

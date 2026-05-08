@@ -184,17 +184,6 @@ There's no test suite. Sanity-check by:
 
 ---
 
-## Easter eggs (don't accidentally remove)
-
-Two hidden tributes live at the bottom of `js/app.js` under the `// EASTER EGGS` header:
-
-1. A styled console signature on page load.
-2. A Konami-code listener (↑ ↑ ↓ ↓ ← → ← → B A) that reveals a "Class of 2026" overlay; click to dismiss.
-
-If you're refactoring, keep them. They're tradition.
-
----
-
 ## When in doubt
 
 - **Don't add a framework.** The whole point is that next year's gamemaster (probably not a coder) can open `index.html` in a text editor and change a date.

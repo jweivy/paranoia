@@ -158,25 +158,6 @@ That's it. No build step. No framework. No npm install (unless you're using the 
 
 ---
 
-## Easter eggs hidden in the site
-
-A few have been left behind for the curious. **No spoilers in the README** — go find them. Hints:
-
-- 🎮 The classics still work
-- 🖥️ Open the browser console (F12). Say hi.
-- 🌙 Watch the sky long enough
-
-If you're handing the site forward, please leave at least one in. It's a tradition now.
-
-> *More Easter egg ideas to consider adding:*
-> *• Click the 😈 logo seven times to reveal something*
-> *• A `?ghost=<name>` URL parameter that overlays a tribute*
-> *• Hidden total-kills counter showing every kill in the school's history*
-> *• A "Class of '26" signature wall that fades in if you scroll to the very bottom and wait 10 seconds*
-> *• Right-click the winner's name in the Hall of Assassins to play a tiny crown animation*
-
----
-
 ## Credits
 
 Built by **Julian Wei '26** during the spring of 2026, mostly between classes and right after rowing practice.
