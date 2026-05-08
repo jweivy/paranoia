@@ -1,3 +1,14 @@
+# Claude Code
+.claude/
 .superpowers/
+docs/superpowers/
 
+# Tooling output
+graphify-out/
+**/graphify-out/
+
+# Backup files
+*.bak
+
+# Deploy
 .vercel
