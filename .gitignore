@@ -12,3 +12,13 @@ graphify-out/
 
 # Deploy
 .vercel
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Node (in case anyone adds tooling later)
+node_modules/
+
