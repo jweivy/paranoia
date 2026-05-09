@@ -132,6 +132,18 @@ The schedule is hardcoded — class hours, sleep-in days. If next year's schedul
 
 Setting `DEMO_MODE = true` (app.js:392) compresses each weekday into 30 seconds (`DEMO_DAY_MS`) and renders a demo-clock chip in the corner so you can preview the inactive transitions and sky cycle without waiting. Always ship with `DEMO_MODE = false`.
 
+### `GAME_OVER` flag and the manual state toggle
+
+`GAME_OVER` (app.js, just below `DEMO_DAY_MS`) is the post-season override. While `true`:
+
+- `init()` skips `startGameStateChecker()`, so the body never has `game-inactive` added automatically.
+- The page stays in the bright "active" look by default — bright reds, no desaturation.
+- `initStateToggle()` wires up `#state-toggle`, a small fixed pill in the bottom-right of every page. Clicking it flips `body.classList.toggle('game-inactive')` and updates the label between `ACTIVE` and `INACTIVE` plus the `aria-pressed` attribute. State is per-session — refreshing resets to active.
+
+When the next gamemaster takes over, they set `GAME_OVER = false` and the auto-scheduler from `GAME_SCHEDULE` takes over again. The toggle keeps working either way (it just fights the auto-checker on a 60s cadence), so it's safest to also remove or hide the `#state-toggle` element in `index.html` if you want pure auto-mode.
+
+The toggle's CSS lives under the `/* ========== STATE TOGGLE (bottom-right pill) ========== */` section near the footer. It deliberately sits at `body` level (not inside a filtered section) so the pill itself never desaturates, and `body.game-inactive .state-toggle { filter: none; }` is belt-and-suspenders for that.
+
 ---
 
 ## CSS conventions
@@ -161,6 +173,7 @@ Mobile breakpoints are 900px (rules grid drops from 3 → 2 columns) and 768px (
 | Add a winner | `index.html` Hall of Assassins (line 193) plus the `.winner-banner` block (line 32) plus the winner modal (line 221) plus a `localStorage` key bump |
 | Change refresh interval | `REFRESH_INTERVAL` constant at `app.js:10` |
 | Change pagination size | `LEADERBOARD_PAGE` or `KILLFEED_PAGE` constants |
+| Re-enable the active/inactive auto-scheduler | `GAME_OVER = false` in `app.js` (just below `DEMO_DAY_MS`). Optionally remove the `#state-toggle` block in `index.html`. |
 
 ---
 

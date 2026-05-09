@@ -29,6 +29,7 @@ It was built for the Class of 2026 game and is now passed forward to whichever c
 ### Atmospheric UI
 - **Day / night sky animation** — a sun arcs across the hero from 6 AM to 6 PM, then a moon and 40 twinkling stars take over from 6 PM to 6 AM. Mobile uses a hand-drawn-style power-curve dome; desktop uses a circular arc.
 - **Game-active / inactive desaturation** — when the game is paused (after-hours, weekend, sleep-in), the whole page goes grayscale and a small `GAME INACTIVE` chip appears.
+- **Manual state toggle (post-season)** — a small pill in the bottom-right (`ACTIVE` / `INACTIVE`) lets visitors flip between the bright "live game" look and the desaturated "off-hours" look. While the game is over, the page stays in the active look by default; the pill is there so people can still see what the inactive state used to look like.
 - **Rules cards** with `UPDATED` and `REMOVED` badges so changes are obvious
 - **Past winners** wall going back to 2012
 
@@ -140,6 +141,12 @@ Search the codebase for `2026`, `MIA MACKLIN-DIB`, and `paranoia-2026-winner` an
 - `index.html` — winner banner (lines ~32–36), winner modal (lines ~221–245), Hall of Assassins (lines ~193–209), and the `2026` text in the footer
 - `js/app.js` — `localStorage` keys inside `showRuleChange()` so returning visitors see your updates
 - `package.json` / Vercel project name — your choice
+
+### 4a. Re-enable the live game-state scheduler
+
+The repo ships with `GAME_OVER = true` in `js/app.js` (just below `DEMO_DAY_MS`). That keeps the page locked to the bright "active" look year-round and shows the small bottom-right toggle pill for visitors who want to peek at the desaturated "inactive" look.
+
+When you start your year, **set `GAME_OVER = false`**. The auto-scheduler in `GAME_SCHEDULE` (also in `app.js`) will take over and the page will dim/brighten on its own based on the day-of-week and time-of-day windows you set. If you don't want the manual pill anymore, delete the `<button class="state-toggle">` block at the bottom of `index.html` — that's all that's needed to remove it.
 
 ### 5. Update the Kill Report form
 
