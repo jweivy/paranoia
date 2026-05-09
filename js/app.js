@@ -404,6 +404,12 @@ function initDayNightCycle() {
 const DEMO_MODE = false;
 const DEMO_DAY_MS = 30000; // 30 seconds per simulated day
 
+// Game-over: skip the auto active/inactive scheduler and keep the page in
+// "active" (bright red) state by default. A small bottom-right pill lets
+// visitors flip to inactive to see what it looked like in real-time.
+// Next year's gamemaster: set this to false to re-enable the scheduler.
+const GAME_OVER = true;
+
 // Schedule: day of week (0=Sun) → { start: [h,m], end: [h,m] } or null (off)
 const GAME_SCHEDULE = {
   0: null,                                    // Sunday — off
@@ -485,6 +491,24 @@ function updateDemoClock(date, active) {
     '<div class="demo-time">' + timeStr + '</div>' +
     '<div class="demo-state ' + (active ? 'active' : 'inactive') + '">' +
     (active ? 'GAME ACTIVE' : 'GAME INACTIVE') + '</div>';
+}
+
+function initStateToggle() {
+  const btn = document.getElementById('state-toggle');
+  if (!btn) return;
+  const label = btn.querySelector('.state-toggle-label');
+
+  function syncLabel() {
+    const inactive = document.body.classList.contains('game-inactive');
+    label.textContent = inactive ? 'INACTIVE' : 'ACTIVE';
+    btn.setAttribute('aria-pressed', String(!inactive));
+  }
+  syncLabel();
+
+  btn.addEventListener('click', () => {
+    document.body.classList.toggle('game-inactive');
+    syncLabel();
+  });
 }
 
 function startGameStateChecker() {
@@ -594,8 +618,12 @@ async function init() {
   // Show rule change popup (one-time per visitor)
   showRuleChange();
 
-  // Start game active/inactive state checker
-  startGameStateChecker();
+  // Start game active/inactive state checker (skipped while GAME_OVER is true —
+  // the manual toggle in initStateToggle() takes over)
+  if (!GAME_OVER) startGameStateChecker();
+
+  // Manual active/inactive toggle for the bottom-right pill
+  initStateToggle();
 
   // Start day/night sky cycle
   initDayNightCycle();
